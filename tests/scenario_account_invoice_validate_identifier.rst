@@ -63,28 +63,21 @@ Create tax::
     >>> credit_note_tax_code = create_tax_code(tax, 'tax', 'credit')
     >>> credit_note_tax_code.save()
 
-Set Cash journal::
-
-    >>> Journal = Model.get('account.journal')
-    >>> journal_cash, = Journal.find([('type', '=', 'cash')])
-    >>> journal_cash.credit_account = account_cash
-    >>> journal_cash.debit_account = account_cash
-    >>> journal_cash.save()
-
-Create Write-Off journal::
-
-    >>> Sequence = Model.get('ir.sequence')
-    >>> sequence_journal, = Sequence.find([('code', '=', 'account.journal')])
-    >>> journal_writeoff = Journal(name='Write-Off', type='write-off',
-    ...     sequence=sequence_journal,
-    ...     credit_account=revenue, debit_account=expense)
-    >>> journal_writeoff.save()
-
 Create party::
 
     >>> Party = Model.get('party.party')
     >>> party = Party(name='Party')
     >>> party.save()
+
+Create account category::
+
+    >>> ProductCategory = Model.get('product.category')
+    >>> account_category = ProductCategory(name="Account Category")
+    >>> account_category.accounting = True
+    >>> account_category.account_expense = expense
+    >>> account_category.account_revenue = revenue
+    >>> account_category.customer_taxes.append(tax)
+    >>> account_category.save()
 
 Create product::
 
@@ -96,9 +89,7 @@ Create product::
     >>> template.default_uom = unit
     >>> template.type = 'service'
     >>> template.list_price = Decimal('40')
-    >>> template.account_expense = expense
-    >>> template.account_revenue = revenue
-    >>> template.customer_taxes.append(tax)
+    >>> template.account_category = account_category
     >>> template.save()
     >>> product, = template.products
 
@@ -143,4 +134,4 @@ Add identifier::
     >>> identifier.save()
     >>> invoice.click('post')
     >>> invoice.state
-    u'posted'
+    'posted'
