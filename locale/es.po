@@ -1,0 +1,10 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:account.invoice:"
+msgid ""
+"There is no identifer on party \"%(party)s\" and invoice \"%(invoice)s\"."
+msgstr ""
+"No hay identificador en el tercero \"%(party)s\" y la factura "
+"\"%(invoice)s\"."
