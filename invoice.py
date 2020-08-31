@@ -15,7 +15,7 @@ class Invoice(metaclass=PoolMeta):
     def validate(cls, invoices):
         super(Invoice, cls).validate(invoices)
         for invoice in invoices:
-            if invoice.state in ['draft', 'cancel']:
+            if invoice.state in ['draft', 'cancelled']:
                 continue
             invoice.check_party_identifier()
 
