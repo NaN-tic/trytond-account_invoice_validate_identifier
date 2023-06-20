@@ -22,7 +22,7 @@ class Invoice(metaclass=PoolMeta):
 
     def check_party_identifier(self):
         Warning = Pool().get('res.user.warning')
-        if not self.party.identifiers:
+        if not self.party.tax_identifier:
             key = 'invoice.party.identifier%s_%s' % (
                 self.id, self.party.id)
 
