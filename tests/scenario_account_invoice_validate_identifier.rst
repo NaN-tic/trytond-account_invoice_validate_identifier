@@ -127,11 +127,10 @@ Post invoice::
 
 Add identifier::
 
-    >>> Identifier = Model.get('party.identifier')
-    >>> identifier = Identifier()
-    >>> identifier.code = '1234'
-    >>> identifier.party = party
-    >>> identifier.save()
+    >>> party_identifier = party.identifiers.new()
+    >>> party_identifier.type = 'eu_vat'
+    >>> party_identifier.code = 'BE0897290877'
+    >>> party.save()
     >>> invoice.click('post')
     >>> invoice.state
     'posted'
